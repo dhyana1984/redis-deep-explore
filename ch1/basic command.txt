@@ -1,0 +1,29 @@
+# 批量设置string value
+mset name1 value1 name2 value2 name3 value3
+
+# 批量获取string value
+mget name1 name2 name3
+# return a list 
+
+set name value5
+# 5秒钟以后过期
+expire name 5 
+
+# 等价于set + expire
+setex name 5 value5
+
+# 如果name不存在，执行set创建
+setnx name value6
+
+# 设定分布式锁lock
+setnx lock true
+# 需要设定过期时间以免逻辑出现问题不执行del删除锁
+# 但是不能把setnx和expire放在事务，因为如果setnx没有拿到lock，不能执行expire
+expire lock 5
+...// do something
+del lock
+
+# Redis2.8以后的版本set命令支持set和expire同时执行
+set lock true ex 5 nx
+...// do something
+del lock
