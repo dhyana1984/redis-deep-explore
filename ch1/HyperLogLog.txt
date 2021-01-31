@@ -1,0 +1,4 @@
+# HyperLogLog是Redis的高级数据结构，用来不精确去重，标准误差是0.81%，用来计算网站每个页面UV
+# pfmerge用于两个pfcount值进行合并
+pfadd codehelo user1 # 类似set的sadd
+pfcount codehole     # 类似set的scard
